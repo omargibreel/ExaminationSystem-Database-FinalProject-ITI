@@ -8,7 +8,7 @@ This project implements a complete examination management system using SQL Serve
 
 ## Authors
 
-**Lead Developer:** Abdalrhman Mohamed Mohamed
+**Team Leader:** Abdalrhman Mohamed Mohamed
 
 **Development Team:**
 - Omar Osama Elsayed Gibreel
