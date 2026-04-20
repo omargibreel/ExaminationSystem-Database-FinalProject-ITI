@@ -387,13 +387,6 @@ The system enforces business rules through comprehensive validation:
 - For the complete visual ERD diagram, refer to `System ERD/Examination System ERD.pdf` in the repository
 - Sample reports and layouts are available in `Reports PDF/` and `FreeForm Report/` directories
 
-## Documentation  
-  
-For detailed documentation, visit the GitHub Wiki:  
-- [Glossary](https://github.com/omargibreel/ExaminationSystem-Database-FinalProject-ITI/wiki/Glossary)  
-- [Project Overview](https://github.com/omargibreel/ExaminationSystem-Database-FinalProject-ITI/wiki/Examination-System-—-Project-Overview)  
-- [Repository Structure and Getting Started](https://github.com/omargibreel/ExaminationSystem-Database-FinalProject-ITI/wiki/Repository-Structure-and-Getting-Started)
-
 ### Citations
 
 **File:** IMPORTANT NOTE.txt (L2-2)
