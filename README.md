@@ -1,5 +1,3 @@
-I'll enhance the README with additional visual elements including project architecture, workflow diagrams, and references to the available visual assets in the repository.
-
 # Examination System Database Project
 
 A comprehensive SQL Server database solution for managing educational examinations, including student enrollment, exam generation, grading, and reporting capabilities.
