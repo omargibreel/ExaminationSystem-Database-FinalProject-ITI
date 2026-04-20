@@ -4,7 +4,7 @@ A comprehensive SQL Server database solution for managing educational examinatio
 
 ## Overview
 
-This project implements a complete examination management system using SQL Server stored procedures, featuring 112 stored procedures organized across CRUD operations, business logic, and reporting functionalities [1](#4-0) . The system supports multiple-choice and true/false questions, automated exam generation, student answer submission, and comprehensive grading with SSRS reporting.
+This project implements a complete examination management system using SQL Server stored procedures, featuring 112 stored procedures organized across CRUD operations, business logic, and reporting functionalities [1](#5-0) . The system supports multiple-choice and true/false questions, automated exam generation, student answer submission, and comprehensive grading with SSRS reporting.
 
 ## Authors
 
@@ -16,7 +16,7 @@ This project implements a complete examination management system using SQL Serve
 - Reem Mohamed Rashad
 - Hana Adel Elsayed
 
-This project was developed as a final project for ITI by the team members listed above [2](#4-1) .
+This project was developed as a final project for ITI by the team members listed above [2](#5-1) .
 
 ## Project Architecture & Visual Assets
 
@@ -280,8 +280,8 @@ EXEC Stored Procedures Code/please_start_with_me.sql
 ```
 
 The simulation creates:
-- 5 exams for different courses (C#, ASP.NET Core, SQL Server, JavaScript, HTML & CSS) [3](#4-2) 
-- 21 student enrollments with 210 answer submissions [4](#4-3) 
+- 5 exams for different courses (C#, ASP.NET Core, SQL Server, JavaScript, HTML & CSS) [3](#5-2) 
+- 21 student enrollments with 210 answer submissions [4](#5-3) 
 - Automated grading and report generation
 
 ## Core Features
@@ -295,24 +295,24 @@ The simulation creates:
 
 1. **Main Entity CRUD** (36 procedures)
    - Add/Update/Delete/Get operations for core entities
-   - Example: `AddStudent`, `UpdateBranch`, `DeleteCourse` [5](#4-4) 
+   - Example: `AddStudent`, `UpdateBranch`, `DeleteCourse` [5](#5-4) 
 
 2. **Many-to-Many Relations** (58 procedures)
    - Managing junction tables and complex relationships
-   - Example: `AddStudentExam`, `DeleteTracksByBranchID` [6](#4-5) 
+   - Example: `AddStudentExam`, `DeleteTracksByBranchID` [6](#5-5) 
 
 3. **Exam Business Logic** (5 procedures)
-   - `Generate_Exam`: Creates randomized exams from course question pools [7](#4-6) 
+   - `Generate_Exam`: Creates randomized exams from course question pools [7](#5-6) 
    - `Student_Exam_Correction`: Automated grading system
    - `AddStudentAnswer`: Answer submission with validation
 
 4. **Reporting Procedures** (6 procedures)
    - SSRS-compatible procedures for generating reports
-   - Student grades, course topics, exam questions, etc. [8](#4-7) 
+   - Student grades, course topics, exam questions, etc. [8](#5-7) 
 
 ### Key Business Logic
 
-- **Exam Generation**: Randomly selects questions using `NEWID()` to ensure unique exams [9](#4-8) 
+- **Exam Generation**: Randomly selects questions using `NEWID()` to ensure unique exams [9](#5-8) 
 - **Validation Rules**: Age constraints (18-45), email format, temporal guards for exam timing
 - **Cascade Deletion**: Proper handling of related records with referential integrity
 
@@ -351,7 +351,7 @@ graph LR
     FR --> EXPORT
 ```
 
-The system integrates with SQL Server Reporting Services (SSRS) and Microsoft Report Builder to generate 6 primary reports [10](#4-9) :
+The system integrates with SQL Server Reporting Services (SSRS) and Microsoft Report Builder to generate 6 primary reports [10](#5-9) :
 
 1. Student information by department
 2. Student grades across all courses
@@ -364,7 +364,7 @@ The system integrates with SQL Server Reporting Services (SSRS) and Microsoft Re
 
 The system enforces business rules through comprehensive validation:
 
-- **Age Validation**: Students must be between 18-45 years old [11](#4-10) 
+- **Age Validation**: Students must be between 18-45 years old [11](#5-10) 
 - **Name Format**: Prevents numeric characters in names
 - **Email Pattern**: Validates email format using pattern matching
 - **Temporal Constraints**: Prevents exam submission outside scheduled times
@@ -388,14 +388,7 @@ The system enforces business rules through comprehensive validation:
 - Sample reports and layouts are available in `Reports PDF/` and `FreeForm Report/` directories
 
 Wiki pages you might want to explore:
-- [Repository Structure and Getting Started (omargibreel/ExaminationSystem-Database-FinalProject-ITI)](/wiki/omargibreel/ExaminationSystem-Database-FinalProject-ITI#1.2)
-- [Glossary (omargibreel/ExaminationSystem-Database-FinalProject-ITI)](/wiki/omargibreel/ExaminationSystem-Database-FinalProject-ITI#7)
 - [Examination System — Project Overview (omargibreel/ExaminationSystem-Database-FinalProject-ITI)](/wiki/omargibreel/ExaminationSystem-Database-FinalProject-ITI#1)
-- [Examination Lifecycle (omargibreel/ExaminationSystem-Database-FinalProject-ITI)](/wiki/omargibreel/ExaminationSystem-Database-FinalProject-ITI#4)
-
-Wiki pages you might want to explore:
-- [Examination System — Project Overview (omargibreel/ExaminationSystem-Database-FinalProject-ITI)](/wiki/omargibreel/ExaminationSystem-Database-FinalProject-ITI#1)
-- [Repository Structure and Getting Started (omargibreel/ExaminationSystem-Database-FinalProject-ITI)](/wiki/omargibreel/ExaminationSystem-Database-FinalProject-ITI#1.2)
 - [Glossary (omargibreel/ExaminationSystem-Database-FinalProject-ITI)](/wiki/omargibreel/ExaminationSystem-Database-FinalProject-ITI#7)
 
 ### Citations
@@ -424,90 +417,79 @@ We used "SSRS , Microsoft Report Builder, Microsoft Freeform Report" tool to gen
 - Abdalrhman Mohamed Mohamed
 ```
 
-**File:** Stored Procedures Code/please_start_with_me.sql (L7-50)
+**File:** Stored Procedures Code/Main_Entities_Stored_Procedures.sql (L134-204)
 ```sql
--- Exam 1: C# Programming
-EXEC Generate_Exam
-    @CourseName = 'C# Programming',
-    @ExamDate = '2026-01-05',
-    @StartTime = '09:00',
-    @EndTime = '11:00',
-    @TotalMCQQuestions = 6,
-    @TotalTrueFalseQuestions = 4;
+CREATE PROCEDURE AddStudent
+    @FirstName VARCHAR(50),
+    @LastName VARCHAR(50),
+    @Email VARCHAR(100),
+    @Phone VARCHAR(20),
+    @DateOfBirth DATE,
+    @TrackID INT
+AS
+BEGIN
+    --SET NOCOUNT ON;
 
--- Exam 2: ASP.NET Core
-EXEC Generate_Exam
-    @CourseName = 'ASP.NET Core',
-    @ExamDate = '2026-01-06',
-    @StartTime = '09:00',
-    @EndTime = '11:00',
-    @TotalMCQQuestions = 7,
-    @TotalTrueFalseQuestions = 3;
+    -- 1. Validate first and last names (letters + special chars, no numbers)
+    IF @FirstName LIKE '%[0-9]%' OR @LastName LIKE '%[0-9]%'
+    BEGIN
+        RAISERROR('First and Last names cannot contain numbers.', 16, 1);
+        RETURN;
+    END;
 
--- Exam 3: SQL Server
-EXEC Generate_Exam
-    @CourseName = 'SQL Server',
-    @ExamDate = '2026-01-07',
-    @StartTime = '09:00',
-    @EndTime = '11:00',
-    @TotalMCQQuestions = 5,
-    @TotalTrueFalseQuestions = 5;
+    -- 2. Check that Track exists
+    IF NOT EXISTS (
+        SELECT 1 FROM Track
+        WHERE TrackID = @TrackID
+    )
+    BEGIN
+        RAISERROR('Track does not exist.', 16, 1);
+        RETURN;
+    END;
 
--- Exam 4: JavaScript
-EXEC Generate_Exam
-    @CourseName = 'JavaScript',
-    @ExamDate = '2026-01-08',
-    @StartTime = '09:00',
-    @EndTime = '11:00',
-    @TotalMCQQuestions = 4,
-    @TotalTrueFalseQuestions = 6;
+    -- 3. Validate age between 18 and 45
+    DECLARE @Age INT;
+    SET @Age = DATEDIFF(YEAR, @DateOfBirth, GETDATE())
+               - CASE 
+                   WHEN MONTH(@DateOfBirth) > MONTH(GETDATE())
+                     OR (MONTH(@DateOfBirth) = MONTH(GETDATE()) AND DAY(@DateOfBirth) > DAY(GETDATE()))
+                   THEN 1 ELSE 0 END;
 
--- Exam 5: HTML & CSS
-EXEC Generate_Exam
-    @CourseName = 'HTML & CSS',
-    @ExamDate = '2026-01-09',
-    @StartTime = '09:00',
-    @EndTime = '11:00',
-    @TotalMCQQuestions = 3,
-    @TotalTrueFalseQuestions = 7;
-```
+    IF @Age < 18 OR @Age > 45
+    BEGIN
+        RAISERROR('Student age must be between 18 and 45.', 16, 1);
+        RETURN;
+    END;
 
-**File:** Stored Procedures Code/please_start_with_me.sql (L475-508)
-```sql
---/////////////////////////////////////////////////////////////// The 6 Required Reports 
+    -- 4. Validate email format (basic)
+    IF @Email NOT LIKE '%_@__%.__%'
+    BEGIN
+        RAISERROR('Invalid email format.', 16, 1);
+        RETURN;
+    END;
 
+    -- 5. Validate email uniqueness
+    IF EXISTS (
+        SELECT 1
+        FROM Student
+        WHERE Email = @Email
+    )
+    BEGIN
+        RAISERROR('Email already exists.', 16, 1);
+        RETURN;
+    END;
 
---1. Report that returns the students information according to Department No parameter. (TrackID)
+    -- 6. Validate phone format (digits only, optional +, length 10-15)
+    IF @Phone LIKE '%[^0-9+]%' OR LEN(@Phone) < 10 OR LEN(@Phone) > 15
+    BEGIN
+        RAISERROR('Phone number must contain only digits (optionally +) and be 10-15 characters long.', 16, 1);
+        RETURN;
+    END;
 
-EXEC GetStudentByTrack 1;
-
-
---2. Report that takes the student ID and returns the grades of the student in all courses they had an exam on. (StudentID)
-
-EXEC StudentGradesReport 21;
-
-
---3. Report that takes the instructor ID and returns the name of the courses that he teaches and the number of student per course. (InstructorID)
-
-EXEC GetCoursesAndStudentsByInstID 2;
-
-
---4. Report that takes course ID and returns its topics. (CourseID)
-
-EXEC GetTopicsByCourseId 3;
-
-
---5. Report that takes exam number and returns the Questions in it and choices. (ExamID)
-
-EXEC GetExamQuestionsWithChoicesReport 1;
-
-
---6. Report that takes exam number and the student ID then returns the Questions in this exam with the student answers. (StudentID , ExamID)
-
-EXEC Student_Exam_Answers 21, 1; -- option 1 : Exam Student Answers without correct choices.
-
-EXEC Student_Exam_Answers_with_Correct_Choices 21, 1; -- option 2 :Exam Student Answers with correct choices.
-
+    -- 7. Insert student
+    INSERT INTO Student (FirstName, LastName, Email, Phone, DateOfBirth, TrackID)
+    VALUES (@FirstName, @LastName, @Email, @Phone, @DateOfBirth, @TrackID);
+END;
 ```
 
 **File:** Stored Procedures Code/Many_To_Many_Entities_Stored_Procedures.sql (L684-706)
@@ -535,137 +517,4 @@ BEGIN
         ch.ChoiceLabel,
         ch.ChoiceText,
         sa.IsCorrect,
-```
-
-**File:** Stored Procedures Code/Exam_Generation_Answers_Correction_Stored_Procedures.sql (L6-134)
-```sql
-CREATE PROC Generate_Exam
-(
-    @CourseName VARCHAR(100),
-    @ExamDate DATE,
-    @StartTime TIME(7),
-    @EndTime TIME(7),
-    @TotalMCQQuestions INT,
-    @TotalTrueFalseQuestions INT
-)
-AS
-BEGIN
-    DECLARE 
-        @CourseID INT,
-        @ExamID INT,
-        @AvailableMCQ INT,
-        @AvailableTF INT,
-        @TotalGrade DECIMAL(5,2);
-
-    -- 1. Get Course ID
-    SELECT @CourseID = CourseID
-    FROM Course
-    WHERE CourseName = @CourseName;
-
-    IF @CourseID IS NULL
-    BEGIN
-        RAISERROR('Course not found', 16, 1);
-        RETURN;
-    END;
-
-    -- 2. Check course has questions
-    IF NOT EXISTS (
-        SELECT 1
-        FROM Question
-        WHERE CourseID = @CourseID
-    )
-    BEGIN
-        RAISERROR('Not enough questions found for this course', 16, 1);
-        RETURN;
-    END;
-
-    -- 3. Count available questions
-    SELECT @AvailableMCQ = COUNT(*)
-    FROM Question
-    WHERE CourseID = @CourseID AND QuestionType = 'M';
-
-    SELECT @AvailableTF = COUNT(*)
-    FROM Question
-    WHERE CourseID = @CourseID AND QuestionType = 'T';
-
-    -- 4. Validate requested counts
-    IF @TotalMCQQuestions > @AvailableMCQ
-    BEGIN
-        RAISERROR('Not enough MCQ questions. Available: %d', 16, 1, @AvailableMCQ);
-        RETURN;
-    END;
-
-    IF @TotalTrueFalseQuestions > @AvailableTF
-    BEGIN
-        RAISERROR('Not enough True/False questions. Available: %d', 16, 1, @AvailableTF);
-        RETURN;
-    END;
-
-    -- 5. Select random questions
-    DECLARE @SelectedQuestions TABLE
-    (
-        RowNum INT IDENTITY(1,1),
-        QuestionID INT,
-        QuestionMark DECIMAL(5,2)
-    );
-
-    -- Random MCQ
-    INSERT INTO @SelectedQuestions (QuestionID, QuestionMark)
-    SELECT TOP (@TotalMCQQuestions)
-           QuestionID,
-           QuestionMark
-    FROM Question
-    WHERE CourseID = @CourseID AND QuestionType = 'M'
-    ORDER BY NEWID();
-
-    -- Random True/False
-    INSERT INTO @SelectedQuestions (QuestionID, QuestionMark)
-    SELECT TOP (@TotalTrueFalseQuestions)
-           QuestionID,
-           QuestionMark
-    FROM Question
-    WHERE CourseID = @CourseID AND QuestionType = 'T'
-    ORDER BY NEWID();
-
-    -- 6. Calculate Total Grade
-    SELECT @TotalGrade = SUM(QuestionMark)
-    FROM @SelectedQuestions;
-
-    -- 7. Insert Exam and get ExamID
-    EXEC AddExam
-        @ExamDate = @ExamDate,
-        @StartTime = @StartTime,
-        @EndTime = @EndTime,
-        @TotalMCQQuestions = @TotalMCQQuestions,
-        @TotalTrueFalseQuestions = @TotalTrueFalseQuestions,
-        @TotalGrade = @TotalGrade,
-        @ExamID = @ExamID OUTPUT;  -- capture ExamID
-
-    -- 8. Insert Exam Questions
-    DECLARE @QuestionID INT,
-            @QuestionOrder INT = 1;
-
-    DECLARE ExamCursor CURSOR FOR
-        SELECT QuestionID
-        FROM @SelectedQuestions
-        ORDER BY RowNum;
-
-    OPEN ExamCursor;
-    FETCH NEXT FROM ExamCursor INTO @QuestionID;
-
-    WHILE @@FETCH_STATUS = 0
-    BEGIN
-        EXEC AddExamQuestion
-            @ExamId = @ExamID,
-            @QuestionId = @QuestionID,
-            @QuestionOrder = @QuestionOrder;
-
-        SET @QuestionOrder += 1;
-        FETCH NEXT FROM ExamCursor INTO @QuestionID;
-    END;
-
-    CLOSE ExamCursor;
-    DEALLOCATE ExamCursor;
-
-END;
 ```
